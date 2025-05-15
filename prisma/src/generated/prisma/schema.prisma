@@ -1,0 +1,255 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ENUMS
+enum service_status {
+  PENDIENTE
+  ACTIVO
+  FINALIZADO
+  CANCELADO
+}
+
+enum plan_status {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+}
+
+enum document_type {
+  CARTA_PRESENTACION
+  CARTA_ACEPTACION
+  CARTA_TERMINACION
+  CONSTANCIA_LIBERACION
+}
+
+enum report_type {
+  MENSUAL
+  BIMESTRAL
+  FINAL
+}
+
+enum report_status {
+  ENVIADO
+  VALIDADO
+  RECHAZADO
+}
+
+enum incident_status {
+  ABIERTA
+  EN_PROCESO
+  RESUELTA
+  CERRADA
+}
+
+enum task_status {
+  PENDIENTE
+  ENTREGADA
+  REVISADA
+}
+
+// MODELOS
+
+model User {
+  id        String   @id @db.Text
+  email     String   @unique
+  role      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  student      Student?      @relation("UserStudent")
+  // ← ❶ Cambiamos a array y quitamos fields/references
+  institutions Institution[] @relation("UserInstitution")
+
+  incidentsReported Incident[]        @relation("IncidentsReported")
+  incidentsResolved Incident[]        @relation("IncidentsResolved")
+  documents         Document[]        @relation("UserSignatures")
+  reportsValid      Report[]          @relation("UserValidations")
+  tasksReviewed     Task[]            @relation("UserReviews")
+  IncidentMessage   IncidentMessage[]
+}
+
+model Student {
+  id                 String @id @db.Text
+  matricula          String @unique @db.VarChar(20)
+  carrera            String
+  creditosAprobados  Int    @map("creditos_aprobados")
+  creditosTotales    Int    @map("creditos_totales")
+  porcentajeCreditos Float? @map("porcentaje_creditos")
+
+  // “dueña” de la FK (id → User.id)
+  user        User                @relation("UserStudent", fields: [id], references: [id])
+  assignments ServiceAssignment[] @relation("StudentAssignments")
+
+  @@map("students")
+}
+
+model Institution {
+  id               Int     @id @default(autoincrement())
+  nombre           String
+  ciudad           String
+  estado           String
+  direccion        String?
+  contactoNombre   String? @map("contacto_nombre")
+  contactoEmail    String  @map("contacto_email")
+  contactoTelefono String? @map("contacto_telefono")
+  incentivoDesc    String? @map("incentivo_desc")
+  verificada       Boolean @default(false)
+  adminUserId      String  @map("admin_user_id")
+
+  // ← ❷ Este lado mantiene la FK
+  user        User                @relation("UserInstitution", fields: [adminUserId], references: [id])
+  assignments ServiceAssignment[] @relation("InstitutionAssignments")
+
+  @@map("institutions")
+}
+
+model ServiceAssignment {
+  id                 Int            @id @default(autoincrement())
+  studentId          String         @map("student_id")
+  institutionId      Int            @map("institution_id")
+  startDate          DateTime?      @map("start_date")
+  plannedEndDate     DateTime?      @map("planned_end_date")
+  endDate            DateTime?      @map("end_date")
+  totalHoursRequired Int            @default(600) @map("total_hours_required")
+  hoursCompleted     Int            @default(0) @map("hours_completed")
+  estado             service_status @default(PENDIENTE)
+  createdAt          DateTime       @default(now()) @map("created_at")
+  updatedAt          DateTime       @default(now()) @map("updated_at")
+
+  student     Student     @relation("StudentAssignments", fields: [studentId], references: [id])
+  institution Institution @relation("InstitutionAssignments", fields: [institutionId], references: [id])
+  workPlans   WorkPlan[]  @relation("AssignmentWorkPlans")
+  documents   Document[]  @relation("AssignmentDocuments")
+  reports     Report[]    @relation("AssignmentReports")
+  hoursLogs   HoursLog[]  @relation("AssignmentHours")
+  incidents   Incident[]  @relation("AssignmentIncidents")
+  tasks       Task[]      @relation("AssignmentTasks")
+
+  @@unique([studentId, estado], name: "uniq_active_assignment")
+  @@map("service_assignments")
+}
+
+model WorkPlan {
+  id           Int         @id @default(autoincrement())
+  assignmentId Int         @map("assignment_id")
+  contenido    Json
+  status       plan_status @default(PENDIENTE)
+  approvedBy   String?     @map("approved_by")
+  approvedAt   DateTime?   @map("approved_at")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @default(now()) @map("updated_at")
+
+  assignment ServiceAssignment @relation("AssignmentWorkPlans", fields: [assignmentId], references: [id])
+
+  @@map("work_plans")
+}
+
+model Document {
+  id           Int           @id @default(autoincrement())
+  assignmentId Int           @map("assignment_id")
+  tipo         document_type
+  filePath     String        @map("file_path")
+  signedBy     String?       @map("signed_by")
+  signedAt     DateTime?     @map("signed_at")
+  createdAt    DateTime      @default(now()) @map("created_at")
+
+  assignment ServiceAssignment @relation("AssignmentDocuments", fields: [assignmentId], references: [id])
+  signedUser User?             @relation("UserSignatures", fields: [signedBy], references: [id])
+
+  @@unique([assignmentId, tipo], name: "uniq_doc_per_assignment")
+  @@map("documents")
+}
+
+model Report {
+  id            Int           @id @default(autoincrement())
+  assignmentId  Int           @map("assignment_id")
+  tipo          report_type
+  periodoInicio DateTime      @map("periodo_inicio")
+  periodoFin    DateTime      @map("periodo_fin")
+  horas         Int
+  descripcion   String?       @map("descripcion")
+  status        report_status @default(ENVIADO)
+  validatedBy   String?       @map("validated_by")
+  validatedAt   DateTime?     @map("validated_at")
+  filePath      String?       @map("file_path")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @default(now()) @map("updated_at")
+
+  assignment ServiceAssignment @relation("AssignmentReports", fields: [assignmentId], references: [id])
+  validator  User?             @relation("UserValidations", fields: [validatedBy], references: [id])
+
+  @@map("reports")
+}
+
+model HoursLog {
+  id           Int      @id @default(autoincrement())
+  assignmentId Int      @map("assignment_id")
+  dateWorked   DateTime @map("date_worked")
+  horas        Int
+  description  String?  @map("description")
+  validated    Boolean  @default(false)
+
+  assignment ServiceAssignment @relation("AssignmentHours", fields: [assignmentId], references: [id])
+
+  @@map("hours_log")
+}
+
+model Incident {
+  id              Int             @id @default(autoincrement())
+  assignmentId    Int?            @map("assignment_id")
+  reportedBy      String          @map("reported_by")
+  reportedAt      DateTime        @default(now()) @map("reported_at")
+  tipo            String
+  descripcion     String
+  estado          incident_status @default(ABIERTA)
+  resolvedBy      String?         @map("resolved_by")
+  resolvedAt      DateTime?       @map("resolved_at")
+  resolutionNotes String?         @map("resolution_notes")
+
+  assignment ServiceAssignment? @relation("AssignmentIncidents", fields: [assignmentId], references: [id])
+  reporter   User               @relation("IncidentsReported", fields: [reportedBy], references: [id])
+  resolver   User?              @relation("IncidentsResolved", fields: [resolvedBy], references: [id])
+  messages   IncidentMessage[]  @relation("IncidentMsgs")
+
+  @@map("incidents")
+}
+
+model IncidentMessage {
+  id         Int      @id @default(autoincrement())
+  incidentId Int      @map("incident_id")
+  senderId   String   @map("sender_id")
+  message    String
+  sentAt     DateTime @default(now()) @map("sent_at")
+
+  incident Incident @relation("IncidentMsgs", fields: [incidentId], references: [id])
+  sender   User     @relation(fields: [senderId], references: [id])
+
+  @@map("incident_messages")
+}
+
+model Task {
+  id             Int         @id @default(autoincrement())
+  assignmentId   Int         @map("assignment_id")
+  titulo         String
+  descripcion    String?
+  fechaLimite    DateTime    @map("fecha_limite")
+  status         task_status @default(PENDIENTE)
+  entregadaAt    DateTime?   @map("entregada_at")
+  attachmentPath String?     @map("attachment_path")
+  reviewedBy     String?     @map("reviewed_by")
+  reviewNotes    String?     @map("review_notes")
+
+  assignment ServiceAssignment @relation("AssignmentTasks", fields: [assignmentId], references: [id])
+  reviewer   User?             @relation("UserReviews", fields: [reviewedBy], references: [id])
+
+  @@map("tasks")
+}
