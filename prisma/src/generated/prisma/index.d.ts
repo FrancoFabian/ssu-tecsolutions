@@ -2147,6 +2147,7 @@ export namespace Prisma {
     role: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    clerkId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2155,6 +2156,7 @@ export namespace Prisma {
     role: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    clerkId: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2163,6 +2165,7 @@ export namespace Prisma {
     role: number
     createdAt: number
     updatedAt: number
+    clerkId: number
     _all: number
   }
 
@@ -2173,6 +2176,7 @@ export namespace Prisma {
     role?: true
     createdAt?: true
     updatedAt?: true
+    clerkId?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2181,6 +2185,7 @@ export namespace Prisma {
     role?: true
     createdAt?: true
     updatedAt?: true
+    clerkId?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2189,6 +2194,7 @@ export namespace Prisma {
     role?: true
     createdAt?: true
     updatedAt?: true
+    clerkId?: true
     _all?: true
   }
 
@@ -2270,6 +2276,7 @@ export namespace Prisma {
     role: string
     createdAt: Date
     updatedAt: Date
+    clerkId: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2295,6 +2302,7 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    clerkId?: boolean
     student?: boolean | User$studentArgs<ExtArgs>
     institutions?: boolean | User$institutionsArgs<ExtArgs>
     incidentsReported?: boolean | User$incidentsReportedArgs<ExtArgs>
@@ -2312,6 +2320,7 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    clerkId?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2320,6 +2329,7 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    clerkId?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2328,9 +2338,10 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    clerkId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "role" | "createdAt" | "updatedAt" | "clerkId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     student?: boolean | User$studentArgs<ExtArgs>
     institutions?: boolean | User$institutionsArgs<ExtArgs>
@@ -2363,6 +2374,7 @@ export namespace Prisma {
       role: string
       createdAt: Date
       updatedAt: Date
+      clerkId: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2799,6 +2811,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly clerkId: FieldRef<"User", 'String'>
   }
     
 
@@ -15275,7 +15288,8 @@ export namespace Prisma {
     email: 'email',
     role: 'role',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    clerkId: 'clerkId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -15660,6 +15674,7 @@ export namespace Prisma {
     role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    clerkId?: StringFilter<"User"> | string
     student?: XOR<StudentNullableScalarRelationFilter, StudentWhereInput> | null
     institutions?: InstitutionListRelationFilter
     incidentsReported?: IncidentListRelationFilter
@@ -15676,6 +15691,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    clerkId?: SortOrder
     student?: StudentOrderByWithRelationInput
     institutions?: InstitutionOrderByRelationAggregateInput
     incidentsReported?: IncidentOrderByRelationAggregateInput
@@ -15689,6 +15705,7 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    clerkId?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -15703,7 +15720,7 @@ export namespace Prisma {
     reportsValid?: ReportListRelationFilter
     tasksReviewed?: TaskListRelationFilter
     IncidentMessage?: IncidentMessageListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "clerkId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15711,6 +15728,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    clerkId?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -15725,6 +15743,7 @@ export namespace Prisma {
     role?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    clerkId?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type StudentWhereInput = {
@@ -16538,6 +16557,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentCreateNestedOneWithoutUserInput
     institutions?: InstitutionCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentCreateNestedManyWithoutReporterInput
@@ -16554,6 +16574,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     institutions?: InstitutionUncheckedCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentUncheckedCreateNestedManyWithoutReporterInput
@@ -16570,6 +16591,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUpdateManyWithoutReporterNestedInput
@@ -16586,6 +16608,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUncheckedUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
@@ -16602,6 +16625,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -16610,6 +16634,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -16618,6 +16643,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StudentCreateInput = {
@@ -17528,6 +17554,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    clerkId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -17536,6 +17563,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    clerkId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -17544,6 +17572,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    clerkId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -20309,6 +20338,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     institutions?: InstitutionCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentCreateNestedManyWithoutReporterInput
     incidentsResolved?: IncidentCreateNestedManyWithoutResolverInput
@@ -20324,6 +20354,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     institutions?: InstitutionUncheckedCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentUncheckedCreateNestedManyWithoutReporterInput
     incidentsResolved?: IncidentUncheckedCreateNestedManyWithoutResolverInput
@@ -20402,6 +20433,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     institutions?: InstitutionUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUpdateManyWithoutReporterNestedInput
     incidentsResolved?: IncidentUpdateManyWithoutResolverNestedInput
@@ -20417,6 +20449,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     institutions?: InstitutionUncheckedUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
     incidentsResolved?: IncidentUncheckedUpdateManyWithoutResolverNestedInput
@@ -20465,6 +20498,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentCreateNestedOneWithoutUserInput
     incidentsReported?: IncidentCreateNestedManyWithoutReporterInput
     incidentsResolved?: IncidentCreateNestedManyWithoutResolverInput
@@ -20480,6 +20514,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     incidentsReported?: IncidentUncheckedCreateNestedManyWithoutReporterInput
     incidentsResolved?: IncidentUncheckedCreateNestedManyWithoutResolverInput
@@ -20558,6 +20593,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUpdateOneWithoutUserNestedInput
     incidentsReported?: IncidentUpdateManyWithoutReporterNestedInput
     incidentsResolved?: IncidentUpdateManyWithoutResolverNestedInput
@@ -20573,6 +20609,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     incidentsReported?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
     incidentsResolved?: IncidentUncheckedUpdateManyWithoutResolverNestedInput
@@ -21168,6 +21205,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentCreateNestedOneWithoutUserInput
     institutions?: InstitutionCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentCreateNestedManyWithoutReporterInput
@@ -21183,6 +21221,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     institutions?: InstitutionUncheckedCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentUncheckedCreateNestedManyWithoutReporterInput
@@ -21262,6 +21301,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUpdateManyWithoutReporterNestedInput
@@ -21277,6 +21317,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUncheckedUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
@@ -21334,6 +21375,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentCreateNestedOneWithoutUserInput
     institutions?: InstitutionCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentCreateNestedManyWithoutReporterInput
@@ -21349,6 +21391,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     institutions?: InstitutionUncheckedCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentUncheckedCreateNestedManyWithoutReporterInput
@@ -21428,6 +21471,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUpdateManyWithoutReporterNestedInput
@@ -21443,6 +21487,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUncheckedUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
@@ -21590,6 +21635,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentCreateNestedOneWithoutUserInput
     institutions?: InstitutionCreateNestedManyWithoutUserInput
     incidentsResolved?: IncidentCreateNestedManyWithoutResolverInput
@@ -21605,6 +21651,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     institutions?: InstitutionUncheckedCreateNestedManyWithoutUserInput
     incidentsResolved?: IncidentUncheckedCreateNestedManyWithoutResolverInput
@@ -21625,6 +21672,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentCreateNestedOneWithoutUserInput
     institutions?: InstitutionCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentCreateNestedManyWithoutReporterInput
@@ -21640,6 +21688,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     institutions?: InstitutionUncheckedCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentUncheckedCreateNestedManyWithoutReporterInput
@@ -21742,6 +21791,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUpdateManyWithoutUserNestedInput
     incidentsResolved?: IncidentUpdateManyWithoutResolverNestedInput
@@ -21757,6 +21807,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUncheckedUpdateManyWithoutUserNestedInput
     incidentsResolved?: IncidentUncheckedUpdateManyWithoutResolverNestedInput
@@ -21783,6 +21834,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUpdateManyWithoutReporterNestedInput
@@ -21798,6 +21850,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUncheckedUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
@@ -21859,6 +21912,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentCreateNestedOneWithoutUserInput
     institutions?: InstitutionCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentCreateNestedManyWithoutReporterInput
@@ -21874,6 +21928,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     institutions?: InstitutionUncheckedCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentUncheckedCreateNestedManyWithoutReporterInput
@@ -21941,6 +21996,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUpdateManyWithoutReporterNestedInput
@@ -21956,6 +22012,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUncheckedUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUncheckedUpdateManyWithoutReporterNestedInput
@@ -22013,6 +22070,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentCreateNestedOneWithoutUserInput
     institutions?: InstitutionCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentCreateNestedManyWithoutReporterInput
@@ -22028,6 +22086,7 @@ export namespace Prisma {
     role: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    clerkId: string
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     institutions?: InstitutionUncheckedCreateNestedManyWithoutUserInput
     incidentsReported?: IncidentUncheckedCreateNestedManyWithoutReporterInput
@@ -22107,6 +22166,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUpdateManyWithoutReporterNestedInput
@@ -22122,6 +22182,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkId?: StringFieldUpdateOperationsInput | string
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     institutions?: InstitutionUncheckedUpdateManyWithoutUserNestedInput
     incidentsReported?: IncidentUncheckedUpdateManyWithoutReporterNestedInput

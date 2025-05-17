@@ -123,14 +123,136 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  name: 'name',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  clerkId: 'clerkId'
+};
+
+exports.Prisma.StudentScalarFieldEnum = {
+  id: 'id',
+  matricula: 'matricula',
+  carrera: 'carrera',
+  creditosAprobados: 'creditosAprobados',
+  creditosTotales: 'creditosTotales',
+  porcentajeCreditos: 'porcentajeCreditos'
+};
+
+exports.Prisma.InstitutionScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  ciudad: 'ciudad',
+  estado: 'estado',
+  direccion: 'direccion',
+  contactoNombre: 'contactoNombre',
+  contactoEmail: 'contactoEmail',
+  contactoTelefono: 'contactoTelefono',
+  incentivoDesc: 'incentivoDesc',
+  verificada: 'verificada',
+  adminUserId: 'adminUserId'
+};
+
+exports.Prisma.ServiceAssignmentScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  institutionId: 'institutionId',
+  startDate: 'startDate',
+  plannedEndDate: 'plannedEndDate',
+  endDate: 'endDate',
+  totalHoursRequired: 'totalHoursRequired',
+  hoursCompleted: 'hoursCompleted',
+  estado: 'estado',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WorkPlanScalarFieldEnum = {
+  id: 'id',
+  assignmentId: 'assignmentId',
+  contenido: 'contenido',
+  status: 'status',
+  approvedBy: 'approvedBy',
+  approvedAt: 'approvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DocumentScalarFieldEnum = {
+  id: 'id',
+  assignmentId: 'assignmentId',
+  tipo: 'tipo',
+  filePath: 'filePath',
+  signedBy: 'signedBy',
+  signedAt: 'signedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ReportScalarFieldEnum = {
+  id: 'id',
+  assignmentId: 'assignmentId',
+  tipo: 'tipo',
+  periodoInicio: 'periodoInicio',
+  periodoFin: 'periodoFin',
+  horas: 'horas',
+  descripcion: 'descripcion',
+  status: 'status',
+  validatedBy: 'validatedBy',
+  validatedAt: 'validatedAt',
+  filePath: 'filePath',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HoursLogScalarFieldEnum = {
+  id: 'id',
+  assignmentId: 'assignmentId',
+  dateWorked: 'dateWorked',
+  horas: 'horas',
+  description: 'description',
+  validated: 'validated'
+};
+
+exports.Prisma.IncidentScalarFieldEnum = {
+  id: 'id',
+  assignmentId: 'assignmentId',
+  reportedBy: 'reportedBy',
+  reportedAt: 'reportedAt',
+  tipo: 'tipo',
+  descripcion: 'descripcion',
+  estado: 'estado',
+  resolvedBy: 'resolvedBy',
+  resolvedAt: 'resolvedAt',
+  resolutionNotes: 'resolutionNotes'
+};
+
+exports.Prisma.IncidentMessageScalarFieldEnum = {
+  id: 'id',
+  incidentId: 'incidentId',
+  senderId: 'senderId',
+  message: 'message',
+  sentAt: 'sentAt'
+};
+
+exports.Prisma.TaskScalarFieldEnum = {
+  id: 'id',
+  assignmentId: 'assignmentId',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  fechaLimite: 'fechaLimite',
+  status: 'status',
+  entregadaAt: 'entregadaAt',
+  attachmentPath: 'attachmentPath',
+  reviewedBy: 'reviewedBy',
+  reviewNotes: 'reviewNotes'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -143,9 +265,68 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.service_status = exports.$Enums.service_status = {
+  PENDIENTE: 'PENDIENTE',
+  ACTIVO: 'ACTIVO',
+  FINALIZADO: 'FINALIZADO',
+  CANCELADO: 'CANCELADO'
+};
+
+exports.plan_status = exports.$Enums.plan_status = {
+  PENDIENTE: 'PENDIENTE',
+  APROBADO: 'APROBADO',
+  RECHAZADO: 'RECHAZADO'
+};
+
+exports.document_type = exports.$Enums.document_type = {
+  CARTA_PRESENTACION: 'CARTA_PRESENTACION',
+  CARTA_ACEPTACION: 'CARTA_ACEPTACION',
+  CARTA_TERMINACION: 'CARTA_TERMINACION',
+  CONSTANCIA_LIBERACION: 'CONSTANCIA_LIBERACION'
+};
+
+exports.report_type = exports.$Enums.report_type = {
+  MENSUAL: 'MENSUAL',
+  BIMESTRAL: 'BIMESTRAL',
+  FINAL: 'FINAL'
+};
+
+exports.report_status = exports.$Enums.report_status = {
+  ENVIADO: 'ENVIADO',
+  VALIDADO: 'VALIDADO',
+  RECHAZADO: 'RECHAZADO'
+};
+
+exports.incident_status = exports.$Enums.incident_status = {
+  ABIERTA: 'ABIERTA',
+  EN_PROCESO: 'EN_PROCESO',
+  RESUELTA: 'RESUELTA',
+  CERRADA: 'CERRADA'
+};
+
+exports.task_status = exports.$Enums.task_status = {
+  PENDIENTE: 'PENDIENTE',
+  ENTREGADA: 'ENTREGADA',
+  REVISADA: 'REVISADA'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Student: 'Student',
+  Institution: 'Institution',
+  ServiceAssignment: 'ServiceAssignment',
+  WorkPlan: 'WorkPlan',
+  Document: 'Document',
+  Report: 'Report',
+  HoursLog: 'HoursLog',
+  Incident: 'Incident',
+  IncidentMessage: 'IncidentMessage',
+  Task: 'Task'
 };
 
 /**

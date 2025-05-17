@@ -2,7 +2,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "src/generated/prisma" 
+  output   = "../src/generated/prisma" 
 }
 
 datasource db {
@@ -64,6 +64,7 @@ model User {
   role      String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  clerkId   String   @unique 
 
   student      Student?      @relation("UserStudent")
   // ← ❶ Cambiamos a array y quitamos fields/references

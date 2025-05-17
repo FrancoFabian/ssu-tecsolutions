@@ -64,6 +64,7 @@ model User {
   role      String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  clerkId   String   @unique
 
   student      Student?      @relation("UserStudent")
   // ← ❶ Cambiamos a array y quitamos fields/references
@@ -85,7 +86,7 @@ model Student {
   creditosTotales    Int    @map("creditos_totales")
   porcentajeCreditos Float? @map("porcentaje_creditos")
 
-  // “dueña” de la FK (id → User.id)
+  // "dueña" de la FK (id → User.id)
   user        User                @relation("UserStudent", fields: [id], references: [id])
   assignments ServiceAssignment[] @relation("StudentAssignments")
 
